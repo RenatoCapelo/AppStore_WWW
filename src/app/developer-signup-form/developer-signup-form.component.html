@@ -1,0 +1,19 @@
+<form [formGroup]="form" (submit)="submit()">
+  <mat-form-field>
+    <mat-label>Developer Name</mat-label>
+    <input type="text" matInput formControlName="devName">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Phone Number</mat-label>
+    <input type="text" matInput formControlName="phoneNum">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Secondary Email</mat-label>
+    <input type="text" matInput formControlName="secEmail">
+  </mat-form-field>
+
+  <button mat-button [disabled]="form.invalid">Submit</button>
+</form>
+<div>
+  {{form.value | json}}
+</div>
