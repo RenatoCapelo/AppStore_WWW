@@ -1,0 +1,20 @@
+<mat-toolbar color="primary" style="height: 7.5vh">
+  <button mat-icon-button (click)="menuButtonClick()">
+    <mat-icon>{{menuOpened? "menu_open" : "menu"}}</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-drawer-container class="example-container">
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened="{{menuOpened}}">
+      <ul style="padding:0; font-size: large;">
+        <li *ngFor="let routerOption of routerOptions" routerLink="{{routerOption.link}}" routerLinkActive="active-link">
+          {{routerOption.description}}
+        </li>
+      </ul>
+
+    </mat-drawer>
+
+    <div class="h-100 w-100">
+      <router-outlet class="w-100 h-100"></router-outlet>
+    </div>
+
+  </mat-drawer-container>

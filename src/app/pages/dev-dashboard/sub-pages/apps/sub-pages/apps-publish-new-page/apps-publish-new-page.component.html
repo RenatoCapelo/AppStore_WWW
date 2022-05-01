@@ -1,0 +1,49 @@
+<mat-stepper orientation="vertical" [linear]="true" #stepper class="w-100 h-100">
+  <mat-step [stepControl]="detailsFormGroup">
+    <form [formGroup]="detailsFormGroup">
+      <ng-template matStepLabel>Fill out the details:</ng-template>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Last name, First name" formControlName="title" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Descreva a sua aplicação (max 200 char)" formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="idAppCategory">
+          <mat-option *ngFor="let category of categories" [value]="category.id">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fileFormGroup">
+    <form [formGroup]="fileFormGroup">
+      <ng-template matStepLabel>Let's select the App!</ng-template>
+      <input type="file"
+      accept=".apk"
+      id="file"
+      class="form-control"
+      (change)="onFileChange($event)"
+      formControlName="apk">
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>

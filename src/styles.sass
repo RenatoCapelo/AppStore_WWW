@@ -1,6 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css"
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
+@import "../../AppStore/node_modules/bootstrap/dist/css/bootstrap.min.css"
 
+*
+  font-family: 'Roboto', sans-serif
+
+html
+  width: 100%
+  height: 100%
+
+body
+  width: 100%
+  height: 100%
+  margin: 0
 
 .blue-snackbar
   background: #0d6efd
@@ -9,3 +22,10 @@
   background: #dc3545
   color: #fff
 
+.example-spacer
+  flex: 1 1 auto
+
+.flexRow
+  display: flex
+  flex-direction: row
+  justify-content: space-between

@@ -1,0 +1,9 @@
+<div class="max-w-bg">
+    <mat-card>
+        <mat-card-content>
+            <app-login-form (onLoginFailed)="onLoginFailed($event)" (onLoginSucess)="onLoginSuccess($event)"></app-login-form>
+            <br>
+            <h6>No Account yet? <a routerLink="/signup">Signup!</a></h6>
+        </mat-card-content>
+    </mat-card>
+</div>

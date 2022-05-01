@@ -1,0 +1,8 @@
+<div class="max-w-bg">
+    <mat-card>
+        <mat-card-content>
+            <app-signup-form (onSignUpFailed)="onSignUpFailed()" (onSignUpSucess)="onSignUpSuccess()"></app-signup-form>
+            <h6 class="mt-3">Already have an account? <a routerLink="/login">Sign in</a></h6>
+        </mat-card-content>
+    </mat-card>
+</div>

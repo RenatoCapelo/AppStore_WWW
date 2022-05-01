@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,12 +15,15 @@ import { SignupFormValidators } from './signup-form.validators';
 })
 export class SignupFormComponent implements OnInit {
 
+  @Output('onSignUpSucess') onSignUpSucess = new EventEmitter<any>();
+  @Output('onSignUpFailed') onSignUpFailed = new EventEmitter<any>();
+
   form;
   formMessage = "";
 
   genders: Array<Gender> = [];
 
-  constructor(private service: AuthService, private fb: FormBuilder, genderService: GenderService,private _snackBar: MatSnackBar) {
+  constructor(private service: AuthService, private fb: FormBuilder, genderService: GenderService) {
 
     this.form = fb.group({
       email: ["",[Validators.required,Validators.email]],
@@ -73,13 +76,11 @@ export class SignupFormComponent implements OnInit {
     .subscribe({
       next: (response)=>{
         console.log(response);
+        this.onSignUpSucess.emit();
       },
       error: (err)=>{
         console.error(err.error);
-        this._snackBar.open("There was an error while creating the users",undefined,{
-          duration: 1000,
-          panelClass: ['red-snackbar']
-        })
+        this.onSignUpFailed.emit();
       }
     });
   }

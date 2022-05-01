@@ -1,0 +1,20 @@
+<div style="position: relative;">
+    <ng-particles [id]="id" [options]="particlesOptions">
+    </ng-particles>
+    <div style="position: relative; z-index: 1; height: 100%;">
+        <mat-toolbar style="justify-content: center; position: absolute;">
+            <mat-toolbar-row style="justify-content: center">
+                <span style="color: white;">AltDroid</span>
+                <span class="example-spacer"></span>
+                <div class="flex-row-align">
+                    Are you a Dev?<button mat-raised-button color="accent" routerLink="/login">Login</button>
+                </div>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <div class="container-fw">
+            <p class="text-xl-white">Looking for the Store Application?</p>
+            <button mat-raised-button color="primary"><a style="color: white;" href="https://github.com/RenatoCapelo/AppStoreClient/releases/latest/download/app-release.apk">Download Here!</a></button>
+        </div>
+    </div>
+</div>

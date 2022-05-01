@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserToGet } from 'src/models/User/userToGet.model';
 import { DeveloperService } from 'src/services/developer/developer.service';
@@ -11,7 +11,9 @@ import { DeveloperService } from 'src/services/developer/developer.service';
 export class DeveloperSignupFormComponent implements OnInit {
 
   form
-  response: UserToGet | null = null
+
+  @Output("onRegisterSuccess")  onRegisterSuccess = new EventEmitter<any>()
+  @Output("onRegisterFailed") onRegisterFailed = new EventEmitter<any>()
 
   constructor(fb:FormBuilder,private devService: DeveloperService) {
     this.form = fb.group({
@@ -25,13 +27,11 @@ export class DeveloperSignupFormComponent implements OnInit {
     this.devService.postDev(this.form.value)
     .subscribe({
       next: (res)=>{
-        this.response = res;
-        console.log(res)
-        console.warn(`Previous Token: ${localStorage.getItem('token')}`);
-        localStorage.setItem('token',this.response.token);
-        console.warn(`Dev Token: ${localStorage.getItem('token')}`);
+        let response = res;
+        localStorage.setItem('token',response.token);
+        this.onRegisterSuccess.emit();
       },
-      error:(error)=>{console.error(error)}
+      error:(error)=>{this.onRegisterFailed.emit()}
     })
   }
 
