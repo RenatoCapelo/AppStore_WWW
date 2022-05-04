@@ -95,12 +95,16 @@ export class AppsPublishedPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.warn("ooga booga");
+    console.warn(localStorage.getItem('user'));
     this._apps.getAppsByDev(JSON.parse(localStorage.getItem('user')!).developer.devGuid)
     .subscribe({
       next: (res)=>{this.apps.data = res.results;}
-    }
-    )
+    })
+
+    this._apps.getGamesByDev(JSON.parse(localStorage.getItem('user')!).developer.devGuid)
+    .subscribe({
+      next: (res)=>{this.games.data = res.results}
+    })
   }
 
 }

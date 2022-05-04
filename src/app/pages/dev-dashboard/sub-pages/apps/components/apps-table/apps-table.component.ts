@@ -23,7 +23,6 @@ export class AppsTableComponent implements OnInit, AfterViewInit {
 
   constructor() { }
   ngAfterViewInit(): void {
-    this.ds.paginator = this.paginator
   }
 
   edit(app:App){

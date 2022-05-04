@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppToGet } from 'src/models/App/AppToGet.model';
@@ -22,6 +22,12 @@ export class AppsService {
     let params = new HttpParams().set('devGuid', devGuid).set("masterCategory",2);
     return this.http.get<AppToGet>(this.url.url+"App",{
       params
+    });
+  }
+
+  public publishApp(body:any):Observable<AppToGet>{
+    return this.http.post<AppToGet>(this.url.url+"App",body,{
+      headers: new HttpHeaders().append("Authorization","bearer "+localStorage.getItem('token'))
     });
   }
 }

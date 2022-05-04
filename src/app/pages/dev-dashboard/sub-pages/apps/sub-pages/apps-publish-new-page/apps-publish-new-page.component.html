@@ -39,9 +39,15 @@
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
+    <mat-progress-bar mode="indeterminate" *ngIf="isWaiting"></mat-progress-bar>
+    <ng-template matStepLabel>Confirm the details</ng-template>
+    <p>Please confirm if all the details are correct :)</p>
+    <p>Title: {{title?.value}}</p>
+    <p>Description: {{description?.value}}</p>
+    <p>App Category: {{idAppCategory?.value}}</p>
+    <p>File: {{fileSource?.value}}</p>
     <div>
+      <button mat-button (click)="submit()">Submit</button>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { applicationCategory } from 'src/models/AppCategory/applicationCategory.model';
 import { AppCategoriesService } from 'src/services/appCategories/app-categories.service';
+import { AppsService } from 'src/services/apps/apps.service';
 
 @Component({
   selector: 'app-apps-publish-new-page',
@@ -14,8 +15,9 @@ export class AppsPublishNewPageComponent implements OnInit {
   detailsFormGroup: FormGroup;
   fileFormGroup: FormGroup;
   categories: applicationCategory[];
+  isWaiting:boolean = false;
 
-  constructor(private _formBuilder: FormBuilder,private route: ActivatedRoute, private categoriesService: AppCategoriesService) {
+  constructor(private _formBuilder: FormBuilder,private route: ActivatedRoute, private categoriesService: AppCategoriesService, private appService: AppsService) {
     this.categories = [];
     this.detailsFormGroup = _formBuilder.group({
       title: ['', Validators.required],
@@ -26,6 +28,19 @@ export class AppsPublishNewPageComponent implements OnInit {
       apk: ['', Validators.required],
       fileSource: ['', Validators.required]
     });
+  }
+
+  get title(){
+    return this.detailsFormGroup.get("title");
+  }
+  get description(){
+    return this.detailsFormGroup.get("description");
+  }
+  get idAppCategory(){
+    return this.detailsFormGroup.get("idAppCategory");
+  }
+  get fileSource(){
+    return this.fileFormGroup.get("fileSource");
   }
 
   ngOnInit() {
@@ -46,4 +61,16 @@ export class AppsPublishNewPageComponent implements OnInit {
     }
   }
 
+  submit(){
+    this.isWaiting = true
+    let formData = new FormData()
+    formData.append("apk",this.fileSource?.value)
+    formData.append("title",this.title?.value)
+    formData.append("description",this.description?.value)
+    formData.append("idAppCategory",this.idAppCategory?.value)
+    this.appService.publishApp(formData).subscribe({
+      next: (res)=>{this.isWaiting = false; console.log(res)},
+      error: (res)=>{this.isWaiting = false; console.log(res)}
+    });
+  }
 }
