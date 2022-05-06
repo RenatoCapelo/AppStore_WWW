@@ -19,7 +19,6 @@ export class AppsTableComponent implements OnInit, AfterViewInit {
   @Output('onAppEditClick') onAppEditClickEvent = new EventEmitter<App>();
   @Output('onAppDeleteClick') onAppDeleteClickEvent = new EventEmitter<App>();
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator
 
   constructor() { }
   ngAfterViewInit(): void {

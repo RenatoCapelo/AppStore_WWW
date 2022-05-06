@@ -4,16 +4,20 @@
       <ng-template matStepLabel>Fill out the details:</ng-template>
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>Title</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="title" required>
+        <input
+        [disabled]="completed"matInput placeholder="Last name, First name" formControlName="title" required>
       </mat-form-field>
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>Description</mat-label>
-        <textarea matInput placeholder="Descreva a sua aplicação (max 200 char)" formControlName="description"></textarea>
+        <textarea
+        [disabled]="completed" matInput placeholder="Descreva a sua aplicação (max 200 char)" formControlName="description"></textarea>
       </mat-form-field>
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>Category</mat-label>
-        <mat-select formControlName="idAppCategory">
-          <mat-option *ngFor="let category of categories" [value]="category.id">
+        <mat-select
+        [disabled]="completed"
+        formControlName="AppCategory">
+          <mat-option *ngFor="let category of categories" [value]="category">
             {{category.name}}
           </mat-option>
         </mat-select>
@@ -26,7 +30,9 @@
   <mat-step [stepControl]="fileFormGroup">
     <form [formGroup]="fileFormGroup">
       <ng-template matStepLabel>Let's select the App!</ng-template>
-      <input type="file"
+      <input
+      [disabled]="completed"
+      type="file"
       accept=".apk"
       id="file"
       class="form-control"
@@ -44,12 +50,15 @@
     <p>Please confirm if all the details are correct :)</p>
     <p>Title: {{title?.value}}</p>
     <p>Description: {{description?.value}}</p>
-    <p>App Category: {{idAppCategory?.value}}</p>
-    <p>File: {{fileSource?.value}}</p>
+    <p>App Category: {{AppCategory?.value.name}}</p>
+    <p>File: {{fileSource?.value.name}}</p>
     <div>
-      <button mat-button (click)="submit()">Submit</button>
+      <button mat-button disabled="completed" (click)="submit()">Submit</button>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button disabled="completed" (click)="stepper.reset()">Reset</button>
     </div>
+  </mat-step>
+  <mat-step *ngIf="completed">
+    <ng-template matStepLabel>Finished!</ng-template>
   </mat-step>
 </mat-stepper>

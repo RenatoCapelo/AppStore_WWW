@@ -16,13 +16,14 @@ export class AppsPublishNewPageComponent implements OnInit {
   fileFormGroup: FormGroup;
   categories: applicationCategory[];
   isWaiting:boolean = false;
+  completed:boolean = false;
 
   constructor(private _formBuilder: FormBuilder,private route: ActivatedRoute, private categoriesService: AppCategoriesService, private appService: AppsService) {
     this.categories = [];
     this.detailsFormGroup = _formBuilder.group({
       title: ['', Validators.required],
       description: ['',Validators.required],
-      idAppCategory: ['',Validators.required]
+      AppCategory: ['',Validators.required]
     });
     this.fileFormGroup = _formBuilder.group({
       apk: ['', Validators.required],
@@ -36,8 +37,8 @@ export class AppsPublishNewPageComponent implements OnInit {
   get description(){
     return this.detailsFormGroup.get("description");
   }
-  get idAppCategory(){
-    return this.detailsFormGroup.get("idAppCategory");
+  get AppCategory(){
+    return this.detailsFormGroup.get("AppCategory");
   }
   get fileSource(){
     return this.fileFormGroup.get("fileSource");
@@ -67,9 +68,10 @@ export class AppsPublishNewPageComponent implements OnInit {
     formData.append("apk",this.fileSource?.value)
     formData.append("title",this.title?.value)
     formData.append("description",this.description?.value)
-    formData.append("idAppCategory",this.idAppCategory?.value)
+    formData.append("idAppCategory",(this.AppCategory?.value))
+
     this.appService.publishApp(formData).subscribe({
-      next: (res)=>{this.isWaiting = false; console.log(res)},
+      next: (res)=>{this.isWaiting = false; this.completed=true;console.log(res)},
       error: (res)=>{this.isWaiting = false; console.log(res)}
     });
   }

@@ -11,15 +11,20 @@ export class AppsService {
 
   constructor(private http: HttpClient,private url: UrlsService) { }
 
-  public getAppsByDev(devGuid: string):Observable<AppToGet>{
-    let params = new HttpParams().set('devGuid', devGuid).set("masterCategory",1);
+  public getAppsByDev(devGuid: string,page:number,size:number):Observable<AppToGet>{
+    let params = new HttpParams()
+    .set('devGuid', devGuid)
+    .set("masterCategory",1)
+    .set("pageNumber",page)
+    .set("pageSize",size);
     return this.http.get<AppToGet>(this.url.url+"App",{
       params
     });
   }
 
-  public getGamesByDev(devGuid: string):Observable<AppToGet>{
-    let params = new HttpParams().set('devGuid', devGuid).set("masterCategory",2);
+  public getGamesByDev(devGuid: string,page:number,size:number):Observable<AppToGet>{
+    let params = new HttpParams().set('devGuid', devGuid).set("masterCategory",2).set("pageNumber",page)
+    .set("pageSize",size);
     return this.http.get<AppToGet>(this.url.url+"App",{
       params
     });

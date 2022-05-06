@@ -5,14 +5,21 @@
         <h3>Apps Published</h3>
         <button mat-raised-button [routerLink]="['../publish', 'App']">Publish a new App</button>
       </div>
-      <app-apps-table [dataSource]="apps" [DisplayedColumns]="displayedColumns" (onAppEditClick)="openEditAppDialog($event)" (onAppDeleteClick)="openDeleteAppDialog($event) "></app-apps-table></mat-tab>
+      <app-apps-table [dataSource]="apps" [DisplayedColumns]="displayedColumns" (onAppEditClick)="openEditAppDialog($event)" (onAppDeleteClick)="openDeleteAppDialog($event) "></app-apps-table>
+      <mat-paginator #paginatorApps (page)="pageChangeApps($event)" [pageSizeOptions]="[5, 10]" showFirstLastButtons aria-label="Select page">
+      </mat-paginator>
+
+
+    </mat-tab>
     <mat-tab label="Games">
       <div class="flexRow" >
         <h3>Games Published</h3>
         <button mat-raised-button [routerLink]="['../publish', 'Game']">Publish a new Game</button>
       </div>
-      <app-apps-table [dataSource]="games" [DisplayedColumns]="displayedColumns" (onAppEditClick)="openEditAppDialog($event)" (onAppDeleteClick)="openDeleteAppDialog($event)"></app-apps-table></mat-tab>
-  </mat-tab-group>
+      <app-apps-table [dataSource]="games" [DisplayedColumns]="displayedColumns" (onAppEditClick)="openEditAppDialog($event)" (onAppDeleteClick)="openDeleteAppDialog($event)"></app-apps-table>
+      <mat-paginator #paginatorGames (page)="pageChangeGames($event)" [pageSizeOptions]="[5, 10]" showFirstLastButtons aria-label="Select page"></mat-paginator>
+    </mat-tab>
+    </mat-tab-group>
 </div>
 <!-- <div class="pba-main-div">
   <div>

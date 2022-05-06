@@ -30,6 +30,7 @@ import { AppsService } from 'src/services/apps/apps.service';
 import { AppsPublishNewPageComponent } from './pages/dev-dashboard/sub-pages/apps/sub-pages/apps-publish-new-page/apps-publish-new-page.component';
 import { AppCategoriesService } from 'src/services/appCategories/app-categories.service';
 import { UrlsService } from 'src/services/urls/urls.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { UrlsService } from 'src/services/urls/urls.service';
     HttpClientModule,
     MaterialModule,
     FontAwesomeModule,
-    NgParticlesModule
+    NgParticlesModule,
+    NgxPaginationModule
   ],
   providers: [
     AuthService,
