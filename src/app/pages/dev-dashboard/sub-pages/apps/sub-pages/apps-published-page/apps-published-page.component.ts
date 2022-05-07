@@ -34,10 +34,8 @@ export class AppsPublishedPageComponent implements OnInit {
   {}
 
 
-  apps=new MatTableDataSource(this.AppsByDev.results);
-  games=new MatTableDataSource(this.GamesByDev.results);
-
-
+  appsDataSource=new MatTableDataSource(this.AppsByDev.results);
+  gamesDataSource=new MatTableDataSource(this.GamesByDev.results);
 
   openEditAppDialog(app:App):void{
     this.dialog.open(EditAppDialogComponent,{
@@ -71,9 +69,9 @@ export class AppsPublishedPageComponent implements OnInit {
     this._apps.getGamesByDev(JSON.parse(localStorage.getItem('user')!).developer.devGuid,page,size)
     .subscribe({
       next: (res)=>{
-        this.GamesByDev = res;
-        this.games.data=this.GamesByDev.results;
-        this.games.paginator = this.paginatorGames;
+        this.gamesDataSource.data=res.results;
+        this.gamesDataSource.data.length = res.count;
+        this.gamesDataSource.paginator = this.paginatorGames;
       }
     })
   }
@@ -81,10 +79,9 @@ export class AppsPublishedPageComponent implements OnInit {
     this._apps.getAppsByDev(JSON.parse(localStorage.getItem('user')!).developer.devGuid,page,size)
     .subscribe({
       next: (res)=>{
-        this.AppsByDev = res;
-        this.apps.data = this.AppsByDev.results;
-        this.apps.paginator = this.paginatorApps;
-        this.apps.data.length = res.count;
+        this.AppsByDev.results.length = res.count;
+        this.appsDataSource = new MatTableDataSource(this.AppsByDev.results);
+        this.appsDataSource.paginator = this.paginatorApps
       }
     })
   }
