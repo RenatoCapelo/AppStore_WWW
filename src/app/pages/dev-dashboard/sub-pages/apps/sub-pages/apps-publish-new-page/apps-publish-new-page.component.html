@@ -53,9 +53,9 @@
     <p>App Category: {{AppCategory?.value.name}}</p>
     <p>File: {{fileSource?.value.name}}</p>
     <div>
-      <button mat-button disabled="completed" (click)="submit()">Submit</button>
+      <button mat-button [disabled]="completed" (click)="submit()">Submit</button>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button disabled="completed" (click)="stepper.reset()">Reset</button>
+      <button mat-button [disabled]="completed" (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>
   <mat-step *ngIf="completed">

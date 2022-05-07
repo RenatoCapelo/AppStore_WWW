@@ -68,7 +68,7 @@ export class AppsPublishNewPageComponent implements OnInit {
     formData.append("apk",this.fileSource?.value)
     formData.append("title",this.title?.value)
     formData.append("description",this.description?.value)
-    formData.append("idAppCategory",(this.AppCategory?.value))
+    formData.append("idAppCategory",(this.AppCategory?.value).id)
 
     this.appService.publishApp(formData).subscribe({
       next: (res)=>{this.isWaiting = false; this.completed=true;console.log(res)},
