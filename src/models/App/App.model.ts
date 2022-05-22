@@ -5,6 +5,7 @@ export interface App{
   applicationCategory: applicationCategory
   applicationGuid:string
   applicationSize:number
+  description: string
   dateOfPublish:Date,
   dateOfUpdate:Date,
   developer: DeveloperToGet,

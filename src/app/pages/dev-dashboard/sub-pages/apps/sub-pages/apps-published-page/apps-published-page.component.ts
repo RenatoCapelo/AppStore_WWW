@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { App } from 'src/models/App/App.model';
 import { AppToGet } from 'src/models/App/AppToGet.model';
@@ -31,7 +32,7 @@ export class AppsPublishedPageComponent implements OnInit, AfterViewInit {
   @ViewChild("paginatorApps") paginatorApps!: MatPaginator
   @ViewChild("paginatorGames") paginatorGames!: MatPaginator
 
-  constructor(public dialog:MatDialog, private _apps: AppsService)
+  constructor(public dialog:MatDialog, private _apps: AppsService, private _snackBar:MatSnackBar)
   {}
 
   appsDataSource=new MatTableDataSource(this.AppsByDev.results);
@@ -52,9 +53,29 @@ export class AppsPublishedPageComponent implements OnInit, AfterViewInit {
     })
   }
   openDeleteAppDialog(app:App):void{
-    this.dialog.open(DeleteAppDialogComponent,{
+    let dialogRef = this.dialog.open(DeleteAppDialogComponent,{
       data:app
-    })
+    }).afterClosed().subscribe({next:(res)=>{
+      switch(res.event){
+        case "delete":
+          this._snackBar.open("The user was successfully deleted",undefined,{
+            duration: 1500,
+            panelClass: ['blue-snackbar']
+          })
+          if(app.applicationCategory.masterCategory.id==1){
+            this.updateApps(1,5);
+          }
+          else{
+            this.updateGames(1,5);
+          }
+        break;
+        case "error":
+          this._snackBar.open("There was an error while deleting the user, try again",undefined,{
+            duration: 1500,
+            panelClass: ['red-snackbar']
+          })
+      }
+    }})
   }
 
 

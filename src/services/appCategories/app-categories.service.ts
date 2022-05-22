@@ -17,4 +17,10 @@ export class AppCategoriesService {
     });
   }
 
+  public getCategoryById(id:number):Observable<applicationCategory>{
+    return this.http.get<applicationCategory>(this.url+"AppCategories/"+id,{
+      headers: new HttpHeaders().append("Authorization","bearer "+localStorage.getItem('token'))
+    });
+  }
+
 }

@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class UrlsService {
 
-  url = "https://api.appstore.renatoventura.pt/"
+  // url = "https://api.appstore.renatoventura.pt/"
+  url = "https://localhost:5001/"
   constructor() {}
 }
