@@ -18,6 +18,8 @@ export class AppsPublishNewPageComponent implements OnInit {
   isWaiting:boolean = false;
   completed:boolean = false;
 
+  listOfPhotos: string[];
+
   constructor(private _formBuilder: FormBuilder,private route: ActivatedRoute, private categoriesService: AppCategoriesService, private appService: AppsService) {
     this.categories = [];
     this.detailsFormGroup = _formBuilder.group({
@@ -29,6 +31,7 @@ export class AppsPublishNewPageComponent implements OnInit {
       apk: ['', Validators.required],
       fileSource: ['', Validators.required]
     });
+    this.listOfPhotos = [];
   }
 
   get title(){
@@ -74,5 +77,10 @@ export class AppsPublishNewPageComponent implements OnInit {
       next: (res)=>{this.isWaiting = false; this.completed=true;console.log(res)},
       error: (res)=>{this.isWaiting = false; console.log(res)}
     });
+  }
+
+  onImageSelect(ev:any){
+    let files = (ev.target.files as FileList)
+    files[0]
   }
 }

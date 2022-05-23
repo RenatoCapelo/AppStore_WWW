@@ -53,12 +53,18 @@
     <p>App Category: {{AppCategory?.value.name}}</p>
     <p>File: {{fileSource?.value.name}}</p>
     <div>
-      <button mat-button [disabled]="completed" (click)="submit()">Submit</button>
+      <button mat-button [hidden]="completed" (click)="submit()">Submit</button>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button [disabled]="completed" (click)="stepper.reset()">Reset</button>
+      <button mat-button [hidden]="completed" (click)="stepper.reset()">Reset</button>
+      <button mat-button [hidden]="!completed" matStepperNext>Next</button>
     </div>
   </mat-step>
-  <mat-step *ngIf="completed">
-    <ng-template matStepLabel>Finished!</ng-template>
+  <mat-step *ngIf="completed" class="h-100">
+    <ng-template matStepLabel>Let's add images!</ng-template>
+    <input type="file" id="imgAdd" hidden>
+    <label for="imgAdd" class="btn btn-info">Adicionar Nova Imagem</label>
+    <div class="d-flex flex-row flex-wrap w-100 h-50 bg-dark">
+      <img *ngFor="let photo of listOfPhotos" [src]="photo">
+    </div>
   </mat-step>
 </mat-stepper>
