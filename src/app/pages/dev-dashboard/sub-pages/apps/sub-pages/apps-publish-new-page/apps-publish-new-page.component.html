@@ -61,10 +61,37 @@
   </mat-step>
   <mat-step *ngIf="completed" class="h-100">
     <ng-template matStepLabel>Let's add images!</ng-template>
-    <input type="file" id="imgAdd" hidden>
-    <label for="imgAdd" class="btn btn-info">Adicionar Nova Imagem</label>
-    <div class="d-flex flex-row flex-wrap w-100 h-50 bg-dark">
-      <img *ngFor="let photo of listOfPhotos" [src]="photo">
+    <mat-progress-bar mode="indeterminate" *ngIf="isWaiting"></mat-progress-bar>
+    <input type="file" id="iconAdd" accept="image/png" hidden (change)="onIconSelect($event)" [disabled]="iconSelected">
+    <label for="iconAdd" class="btn btn-primary" [ngClass]="iconSelected ? 'disabled' : ''">Adicionar Ícone</label>
+
+    <input type="file" id="imgAdd" accept="image/png" hidden (change)="onPhoneScreenShotSelect($event)">
+    <label for="imgAdd" class="btn btn-info">Adicionar Screenshot</label>
+    <div class="container-fluid my-3 p-2">
+      <div class="row" style="height: 400px ; background-color: #cccccccc;">
+        <div class="col-4 h-100">
+          <div class="h-25 w-100 d-flex justify-content-center align-items-center">
+            <span>Ícone:</span>
+          </div>
+          <div class="h-75 w-100 d-flex justify-content-center p-2">
+            <img [src]="icon.photo" class="mh-100">
+          </div>
+        </div>
+
+        <div class="col-1"></div>
+
+        <div class="col h-100">
+          <div class="h-25 w-100 d-flex justify-content-center align-items-center">
+            <span>Screenshots:</span>
+          </div>
+          <div class="h-75 w-100 d-flex align-items-center flex-row flex-wrap p-2" style="overflow-y: auto;">
+            <img *ngFor="let photo of listOfPhotos" [src]="photo.photo" class="mh-100">
+          </div>
+        </div>
+      </div>
     </div>
+
+    <button mat-raised-button>Ignorar por agora</button>
+    <button mat-raised-button (click)="submitPhotos()">Guardar Fotos</button>
   </mat-step>
 </mat-stepper>

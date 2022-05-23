@@ -58,7 +58,7 @@ export class AppsPublishedPageComponent implements OnInit, AfterViewInit {
     }).afterClosed().subscribe({next:(res)=>{
       switch(res.event){
         case "delete":
-          this._snackBar.open("The user was successfully deleted",undefined,{
+          this._snackBar.open("The app was successfully deleted",undefined,{
             duration: 1500,
             panelClass: ['blue-snackbar']
           })
@@ -70,7 +70,7 @@ export class AppsPublishedPageComponent implements OnInit, AfterViewInit {
           }
         break;
         case "error":
-          this._snackBar.open("There was an error while deleting the user, try again",undefined,{
+          this._snackBar.open("There was an error while deleting the app, try again",undefined,{
             duration: 1500,
             panelClass: ['red-snackbar']
           })
