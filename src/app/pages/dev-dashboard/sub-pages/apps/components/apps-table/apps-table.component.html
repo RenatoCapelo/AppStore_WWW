@@ -1,4 +1,11 @@
 <table mat-table [dataSource]="ds" style="width: 100%;">
+  <ng-container matColumnDef="icon">
+    <th mat-header-cell *matHeaderCellDef>Icon</th>
+    <td mat-cell *matCellDef="let app">
+      <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="!app.icon">no_photography</mat-icon>
+      <img *ngIf="app.icon" [src]="url.url+'storage/apps/'+app.developer.devGuid+'/'+app.applicationGuid+'/photos/'+app.icon+'.png'" style="width: 30px; height: 30px;">
+    </td>
+  </ng-container>
   <ng-container matColumnDef="packageName">
     <th mat-header-cell *matHeaderCellDef>Package Name</th>
     <td mat-cell *matCellDef="let app">

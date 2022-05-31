@@ -16,7 +16,7 @@ import { EditAppDialogComponent } from '../../components/edit-app-dialog/edit-ap
 })
 export class AppsPublishedPageComponent implements OnInit, AfterViewInit {
 
-  displayedColumns:string[] = ["packageName","title","applicationSize","ratingAverage","edit","delete"];
+  displayedColumns:string[] = ["icon","packageName","title","applicationSize","ratingAverage","edit","delete"];
   AppsByDev: AppToGet={
     pages: 0,
     count: 0,

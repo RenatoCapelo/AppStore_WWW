@@ -2,6 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChil
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { App } from 'src/models/App/App.model';
+import { UrlsService } from 'src/services/urls/urls.service';
 
 @Component({
   selector: 'app-apps-table',
@@ -20,7 +21,7 @@ export class AppsTableComponent implements OnInit, AfterViewInit {
   @Output('onAppDeleteClick') onAppDeleteClickEvent = new EventEmitter<App>();
 
 
-  constructor() { }
+  constructor(public url: UrlsService) { }
   ngAfterViewInit(): void {
   }
 
