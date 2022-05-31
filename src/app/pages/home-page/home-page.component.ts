@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ISourceOptions } from 'tsparticles';
 
 @Component({
@@ -8,7 +10,14 @@ import { ISourceOptions } from 'tsparticles';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer) {
+      this.matIconRegistry.addSvgIcon(
+        "github",
+        this.domSanitizer.bypassSecurityTrustResourceUrl("/assets/github-brands.svg")
+      );
+    }
 
   id = "tsparticles";
   particlesOptions:ISourceOptions = {
