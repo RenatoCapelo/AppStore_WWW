@@ -54,10 +54,10 @@ export class EditAppDialogComponent implements OnInit, OnDestroy {
   save(){
     this._apps.updateApp(this.app.applicationGuid,this.title,this.description,this.idAppCategory).subscribe({
       next: (res)=>{
-        this.dialogRef.close();
+        this.dialogRef.close({event:"edit",data:null});
       },
       error: (res)=>{
-        this.dialogRef.close();
+        this.dialogRef.close({event:"error",data:null});
       }
     })
   }

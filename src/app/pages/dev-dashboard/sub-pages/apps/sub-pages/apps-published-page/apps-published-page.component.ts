@@ -50,7 +50,24 @@ export class AppsPublishedPageComponent implements OnInit, AfterViewInit {
   openEditAppDialog(app:App):void{
     this.dialog.open(EditAppDialogComponent,{
       data:app
-    })
+    }).afterClosed().subscribe({next:(res)=>{
+      switch(res.event){
+        case "edit":
+          this._snackBar.open("The app was successfully edited",undefined,{
+            duration: 1500,
+            panelClass: ['blue-snackbar']
+          })
+          if(app.applicationCategory.masterCategory.id==1){
+            this.updateApps(1,5);
+          }
+          else{
+            this.updateGames(1,5);
+          }
+          break;
+        case "error":
+          break;
+      }
+    }})
   }
   openDeleteAppDialog(app:App):void{
     let dialogRef = this.dialog.open(DeleteAppDialogComponent,{
