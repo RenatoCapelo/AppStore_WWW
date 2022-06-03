@@ -38,6 +38,12 @@ export class AppsService {
     });
   }
 
+  public updateApp(applicationGuid:any,title:any,description:any,idAppCategory:any):Observable<any>{
+    return this.http.post(this.url.url+"App/Update/Details",{applicationGuid,title,description,idAppCategory},{
+      headers: new HttpHeaders().append("Authorization","bearer "+localStorage.getItem('token'))
+    });
+  }
+
   public deleteApp(appGuid:string){
     return this.http.delete<number>(this.url.url+"App/"+appGuid,{
       headers: new HttpHeaders().append("Authorization","bearer "+localStorage.getItem('token'))

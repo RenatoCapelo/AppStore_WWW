@@ -6,6 +6,7 @@ import { MatSelect } from '@angular/material/select';
 import { App } from 'src/models/App/App.model';
 import { applicationCategory } from 'src/models/AppCategory/applicationCategory.model';
 import { AppCategoriesService } from 'src/services/appCategories/app-categories.service';
+import { AppsService } from 'src/services/apps/apps.service';
 
 @Component({
   selector: 'app-edit-app-dialog',
@@ -20,6 +21,7 @@ export class EditAppDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public app: App,
     fb: FormBuilder,
     private _categories:AppCategoriesService,
+    private _apps:AppsService,
     private dialogRef: MatDialogRef<EditAppDialogComponent>
     ){
     this.detailsEdit = fb.group(
@@ -31,6 +33,16 @@ export class EditAppDialogComponent implements OnInit, OnDestroy {
     );
    }
 
+    get title(){
+      return this.detailsEdit.get("title")?.value;
+    }
+    get description(){
+      return this.detailsEdit.get("description")?.value
+    }
+    get idAppCategory(){
+      return this.detailsEdit.get("idAppCategory")?.value;
+    }
+
   ngOnInit(): void {
     this._categories.getCategoriesByMaster(this.app.applicationCategory.masterCategory.id)
     .subscribe({
@@ -40,7 +52,14 @@ export class EditAppDialogComponent implements OnInit, OnDestroy {
     })
   }
   save(){
-
+    this._apps.updateApp(this.app.applicationGuid,this.title,this.description,this.idAppCategory).subscribe({
+      next: (res)=>{
+        this.dialogRef.close();
+      },
+      error: (res)=>{
+        this.dialogRef.close();
+      }
+    })
   }
   ngOnDestroy(): void {
   }
