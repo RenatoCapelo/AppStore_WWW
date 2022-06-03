@@ -39,7 +39,14 @@ export class AppsService {
   }
 
   public updateApp(applicationGuid:any,title:any,description:any,idAppCategory:any):Observable<any>{
-    return this.http.post(this.url.url+"App/Update/Details",{applicationGuid,title,description,idAppCategory},{
+    if(idAppCategory==null)
+    {
+      idAppCategory=0
+    }
+    else{
+      idAppCategory=parseInt(idAppCategory);
+    }
+    return this.http.put(this.url.url+"App/Update/Details",{applicationGuid,title,description,idAppCategory},{
       headers: new HttpHeaders().append("Authorization","bearer "+localStorage.getItem('token'))
     });
   }
