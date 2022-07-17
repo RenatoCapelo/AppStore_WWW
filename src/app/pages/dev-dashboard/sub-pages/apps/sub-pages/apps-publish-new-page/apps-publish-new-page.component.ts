@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { App } from 'src/models/App/App.model';
 import { appPhoto, photoTypes } from 'src/models/App/appPhoto.model';
 import { AppToGet } from 'src/models/App/AppToGet.model';
@@ -26,7 +26,7 @@ export class AppsPublishNewPageComponent implements OnInit {
   listOfPhotos: appPhoto[];
   icon:appPhoto;
 
-  constructor(private _formBuilder: FormBuilder,private route: ActivatedRoute, private categoriesService: AppCategoriesService, private appService: AppsService) {
+  constructor(private _formBuilder: FormBuilder,private router: Router,private route: ActivatedRoute, private categoriesService: AppCategoriesService, private appService: AppsService) {
     this.categories = [];
     this.detailsFormGroup = _formBuilder.group({
       title: ['', Validators.required],
@@ -113,6 +113,13 @@ export class AppsPublishNewPageComponent implements OnInit {
   submitPhotos(){
     let listToSend = [...this.listOfPhotos,this.icon]
     this.appService.publishPhotos(this.app!.applicationGuid,listToSend)
-    .subscribe({next:(res)=>{console.log(res)},error:(err)=>{console.error(err)}})
+    .subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.router.navigate(['/developer/apps/dashboard'])
+      },
+      error:(err)=>{
+        console.error(err)
+      }})
   }
 }

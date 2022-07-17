@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dev-dashboard',
@@ -9,11 +10,18 @@ export class DevDashboardComponent implements OnInit {
   menuOpened:boolean = false
   routerOptions = [
     {link:"./apps", description:"Apps"}
-
   ]
-  constructor() { }
+  loggedInUser;
+  constructor(private router:Router) {
+    this.loggedInUser = JSON.parse(localStorage.getItem("user")!).name
+  }
 
   ngOnInit(): void {
+  }
+
+  signout(): void{
+    localStorage.clear();
+    this.router.navigate([""]);
   }
 
   menuButtonClick(){

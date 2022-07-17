@@ -8,8 +8,6 @@
       <app-apps-table [dataSource]="appsDataSource" [DisplayedColumns]="displayedColumns" (onAppEditClick)="openEditAppDialog($event)" (onAppDeleteClick)="openDeleteAppDialog($event) "></app-apps-table>
       <mat-paginator #paginatorApps (page)="pageChangeApps($event)" [pageSizeOptions]="[5, 10]" showFirstLastButtons aria-label="Select page">
       </mat-paginator>
-
-
     </mat-tab>
     <mat-tab label="Games">
       <div class="flexRow" >
